@@ -11,6 +11,7 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Rubik:ital,wght@0,300..900;1,300..900&display=swap"
         rel="stylesheet">
+
     <style>
         html {
             background-color: black;
@@ -31,7 +32,6 @@
 
         .heading-section {
             text-align: center;
-            padding: 5% 7% 0% 7%;
         }
 
         .heading {
@@ -96,8 +96,14 @@
 
         .achievement-grid article {
             padding: 1rem;
-            border: 1px solid #e0e0e0;
-            border-radius: 8px;
+            border-left: 3px solid #595959;
+            border-right: 15px solid #595959;
+            border-top: 3px solid #595959;
+            border-bottom: 15px solid #595959;
+            border-bottom-left-radius: 100px;
+            border-top-right-radius: 100px;
+            border-top-left-radius: 0px;
+            border-bottom-right-radius: 0px;
         }
 
         @media (max-width: 768px) {
@@ -108,29 +114,115 @@
 
         /* For Printing */
         @media print {
+
             body {
                 background: white;
+                width: 100%;
+                font-size: 12px;
             }
 
-            main {
-                margin: 0;
-                padding: 0;
-                box-shadow: none;
+            section,
+            article {
+                break-inside: avoid;
+                page-break-inside: avoid;
             }
 
-            a {
-                color: black;
-                text-decoration: none;
+            .container {
+                padding: 24px;
             }
 
-            .achievement-grid {
-                grid-template-columns: 1fr;
+            .dark-switch,
+            .print-btn,
+            #checkNativeSwitch {
+                display: none;
             }
         }
+
+        /* For Dark Mode */
+        .dark-switch {
+            display: flex;
+            justify-content: space-between;
+            padding: 15px;
+        }
+
+        .dark {
+            color: white;
+        }
+
+        .dark-bg {
+            background-color: #000000;
+            border: 1px solid white;
+        }
+
+        .print-btn {
+            border: 1px solid #1E90FF;
+            padding: 5px;
+            border-radius: 50px;
+            cursor: pointer;
+            background-color: white;
+        }
+
+        #checkNativeSwitch {
+            display: none;
+        }
+
+        .theme-label {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            cursor: pointer;
+        }
+
+        .icon-sun {
+            display: none;
+        }
+
+        #checkNativeSwitch:checked+.theme-label .icon-moon {
+            display: none;
+        }
+
+        #checkNativeSwitch:checked+.theme-label .icon-sun {
+            display: inline;
+        }
     </style>
+
+    <script>
+        function toggleDarkBtn() {
+            document.querySelector('#dark').classList.toggle('dark');
+            document.querySelectorAll('h1').forEach(h1 => h1.classList.toggle('dark'));
+            document.querySelectorAll('a').forEach(a => a.classList.toggle('dark'));
+            document.querySelector('#dark').classList.toggle('dark-bg');
+        }
+
+        function printPDF() {
+            const pdfUrl = 'SujitSanjayGajare-Resume.pdf';
+            const iframe = document.createElement('iframe');
+            iframe.style.display = 'none';
+            iframe.src = pdfUrl;
+            iframe.onload = function () {
+                iframe.contentWindow.focus();
+                iframe.contentWindow.print();
+            };
+            document.body.appendChild(iframe);
+        }
+
+    </script>
+
 </head>
 
-<body>
+<body id="dark">
+
+    <div class="dark-switch">
+        <button onclick="printPDF()" type="button" class="print-btn"> 🖨️
+        </button>
+        <input onclick="toggleDarkBtn()" class="form-check-input" type="checkbox" id="checkNativeSwitch" switch>
+        <label for="checkNativeSwitch" class="theme-label">
+            <span class="icon-moon">🌙</span>
+            <span class="icon-sun">☀️</span>
+        </label>
+
+    </div>
+
     <main class="container">
         <header>
             <div class="heading-section">
