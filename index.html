@@ -1,4 +1,4 @@
-<html>
+<!DOCTYPE html lang="en">
 
 <head>
     <title>Sujit Gajare | Senior Frontend Developer (Angular)</title>
@@ -42,7 +42,7 @@
         }
 
         .sub-heading {
-            color: #1E90FF;
+            color: #0057AD;
             font-weight: normal;
             margin: 16px 0;
             font-size: clamp(1.125rem, 1.5vw, 1.5rem);
@@ -155,7 +155,7 @@
         }
 
         .print-btn {
-            border: 1px solid #1E90FF;
+            border: 1px solid #0057AD;
             padding: 5px;
             border-radius: 50px;
             cursor: pointer;
@@ -163,7 +163,19 @@
         }
 
         #checkNativeSwitch {
-            display: none;
+            position: absolute;
+            width: 1px;
+            height: 1px;
+            margin: -1px;
+            padding: 0;
+            border: 0;
+            overflow: hidden;
+            clip: rect(0 0 0 0);
+            white-space: nowrap;
+        }
+
+        #checkNativeSwitch:focus+.theme-label {
+            outline: 1px solid #000000;
         }
 
         .theme-label {
@@ -171,6 +183,8 @@
             align-items: center;
             gap: 6px;
             cursor: pointer;
+            border-radius: 50px;
+            border: 1px solid #0057AD;
         }
 
         .icon-sun {
@@ -187,11 +201,13 @@
     </style>
 
     <script>
-        function toggleDarkBtn() {
+        function toggleDarkBtn(el) {
             document.querySelector('#dark').classList.toggle('dark');
             document.querySelectorAll('h1').forEach(h1 => h1.classList.toggle('dark'));
             document.querySelectorAll('a').forEach(a => a.classList.toggle('dark'));
             document.querySelector('#dark').classList.toggle('dark-bg');
+            const isDark = el.checked;
+            el.setAttribute('aria-checked', isDark);
         }
 
         function printPDF() {
@@ -213,12 +229,14 @@
 <body id="dark">
 
     <div class="dark-switch">
-        <button onclick="printPDF()" type="button" class="print-btn"> 🖨️
+        <button onclick="printPDF()" type="button" class="print-btn" aria-label="Print this page as PDF"
+            title="Print page"> 🖨️
         </button>
-        <input onclick="toggleDarkBtn()" class="form-check-input" type="checkbox" id="checkNativeSwitch" switch>
+        <input onclick="toggleDarkBtn(this)" class="form-check-input" aria-checked="false"
+            aria-label="Toggle dark mode for this Page" type="checkbox" id="checkNativeSwitch">
         <label for="checkNativeSwitch" class="theme-label">
-            <span class="icon-moon">🌙</span>
-            <span class="icon-sun">☀️</span>
+            <span class="icon-moon" aria-hidden="true">🌙</span>
+            <span class="icon-sun" aria-hidden="true">☀️</span>
         </label>
 
     </div>
@@ -227,7 +245,7 @@
         <header>
             <div class="heading-section">
                 <h1 class="heading">SUJIT SANJAY GAJARE</h1>
-                <h3 class="sub-heading">Senior Frontend Developer (Angular) | React Experience</h3>
+                <h2 class="sub-heading">Senior Frontend Developer (Angular) | React Experience</h2>
                 <p class="contact-info">
                     <span>&#9679; <a href="tel:+918149862034"> +91 &nbsp;8149862034</a></span>
                     <span>&#9679; <a href="mailto:sujitgajare@gmail.com">sujitgajare@gmail.com</a></span>
