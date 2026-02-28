@@ -1,0 +1,51 @@
+[Infosys Experience]
+Spearheaded frontend architecture for enterprise-grade applications using Angular 14+, HTML5, and SCSS, achieving a 
+30% improvement in initial page load times. 
+Architected and deployed micro-frontend solutions to enhance modularity and scalability across multi-functional 
+development streams. 
+Directed a team of 6 junior developers through code reviews and systematized quality checks, ensuring 100% adherence 
+to Angular best practices. 
+Collaborated with UX designers and backend engineers to integrate REST/GraphQL APIs, streamlining the delivery of high 
+quality, user-centric features. 
+Boosted application stability by increasing unit test coverage from 55% to 85% using Jasmine and enforcing strict quality 
+gates via SonarQube. 
+Orchestrated CI/CD pipelines with AWS, Docker, and Bamboo in partnership with DevOps, reducing release cycle times. 
+Implemented WCAG 2.2 Level AA and W3C authoring practices using semantic HTML and ARIA, ensuring accessibility 
+compliance without introducing visual or functional regressions. 
+Implemented complex ARIA patterns and managed focus states for dynamic Angular components. 
+Interpreted accessibility violations from internal audits and automated scanners (Axe, internal tools) to author source-level 
+fixes in TypeScript, SCSS, and HTML. 
+Tested accessibility using NVDA, JAWS, and Voiceover with keyboard-only navigation to validate real-world user 
+experience. 
+Authored custom accessibility fixes using JavaScript / TypeScript and jQuery for legacy components. 
+Resolved critical production bottlenecks using ELK and ServiceNow to maintain high system availability 
+Earned multiple Rise and Insta Awards for innovation, leadership, and consistent delivery excellence on high-impact 
+projects.  
+
+[TechIMO Experience]
+Developed and maintained semantic, WCAG-compliant HTML/CSS templates for Shopify and WordPress using JavaScript, 
+CSS, and Bootstrap, ensuring responsive and accessible user interfaces. 
+Collaborated with clients for requirement gathering, sprint planning, and deployments. 
+Led a team of 6 developers to deliver custom websites, web applications, web features, and performance enhancement 
+solutions. 
+
+[Skills]
+Frontend: Angular, React, TypeScript, JavaScript, jQuery, HTML5, CSS3, Bootstrap. 
+State & Data: RxJS, NgRx, REST, GraphQL, JWT 
+Testing & Quality: Jasmine, Unit Testing, SonarQube (quality gates, code analysis) 
+Accessibility: WCAG 2.2, Section 508, WAI-ARIA, Semantic HTML5, NVDA, JAWS, Keyboard Navigation testing, Voiceover 
+Axe-tool, Lighthouse. 
+DevOps & Monitoring: AWS, Docker, Bamboo, CI/CD, ELK Stack (log analysis, production debugging) 
+Collaboration & Workflow Tools: Jira (Agile / ticketing), Git, GitHub (version control), ServiceNow (incident & production 
+issue tracking), Confluence (technical documentation). 
+
+[Projects]
+Developed and maintained 8 Angular micro-frontends for an enterprise financial platform 
+Enforced a modular micro-frontend architecture with RxJS for modular development and independent deployments 
+Integrated REST and GraphQL APIs for real-time portfolio data synchronization 
+Streamlined application performance using lazy loading and code splitting 
+Conducted manual keyboard-only navigation checks and used NVDA to identify and fix navigation and focus issues 
+impacting users with visual impairments. 
+Applied ARIA attributes and focus management where required for dynamic Angular components. 
+Performed targeted fixes using TypeScript, JavaScript, and jQuery for legacy or third-party UI components. 
+Delivered WCAG 2.2 compliant responsive UIs 

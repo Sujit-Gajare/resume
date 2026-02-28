@@ -93,14 +93,19 @@
             display: grid;
             grid-template-columns: repeat(3, 1fr);
             gap: 1.5rem;
+            
+            .sub-heading {
+                text-align: center;
+                margin: 0 0;
+            }
         }
 
         .achievement-grid article {
             padding: 1rem;
             border-left: 3px solid #595959;
-            border-right: 15px solid #595959;
+            border-right: 15px solid #0057AD;
             border-top: 3px solid #595959;
-            border-bottom: 15px solid #595959;
+            border-bottom: 15px solid #0057AD;
             border-bottom-left-radius: 100px;
             border-top-right-radius: 100px;
             border-top-left-radius: 0px;
@@ -223,6 +228,116 @@
             document.body.appendChild(iframe);
         }
 
+        // content fetching and rendering logic from JSON file
+        fetch('content.json')
+            .then(response => response.json())
+            .then(data => {
+                // Profile
+                // document.getElementById('name').textContent = data.profile.name;
+                document.getElementById('title').textContent = data.profile.title;
+                document.getElementById('summary').textContent = data.profile.summary;
+
+                // Experience
+                const companyName1 = document.getElementById('companyName1')
+                companyName1.textContent = data.experience[0].company;                // For Company Name
+                const role1 = document.getElementById('role1')
+                role1.textContent = data.experience[0].role;                          // For Role
+                const duration1 = document.getElementById('duration1')
+                duration1.textContent = data.experience[0].duration;                          // For Duration
+
+                const companyName2 = document.getElementById('companyName2')
+                companyName2.textContent = data.experience[1].company;                // For Company Name
+                const role2 = document.getElementById('role2')
+                role2.textContent = data.experience[1].role;                          // For Role
+                const duration2 = document.getElementById('duration2')
+                duration2.textContent = data.experience[1].duration;                          // For Duration
+                // For Desctiption please modify the txt file for the company.
+
+                // Projects
+                document.getElementById('Project1Name').textContent = data.projects[0].name;
+
+                // Key Achievements
+                const achievementHeadings = document.querySelectorAll('.achievements .sub-heading');
+                const achievementParagraphs = document.querySelectorAll('.achievements article p'); 
+                achievementHeadings.forEach((heading, index) => {
+                    if (data.achievements[index]) {
+                        heading.textContent = data.achievements[index].heading;
+                    }
+                });
+                achievementParagraphs.forEach((paragraph, index) => {
+                    if (data.achievements[index]) {
+                        paragraph.textContent = data.achievements[index].description;
+                    }
+                });
+            })
+            .catch(err => console.error('Failed to load content', err));
+
+        // content fetching and rendering logic from txt file
+        fetch('heavy-content.txt')
+            .then(response => {
+                if (!response.ok) throw new Error('Failed to load heavy-content.txt');
+                return response.text();
+            })
+            .then(data => {
+                const sections = {};
+                let currentSection = null;
+                data.split("\n").forEach(line => {
+                    const trimmedLine = line.trim();
+                    const match = trimmedLine.match(/^\[(.+)\]$/);
+                    if (match) {
+                        currentSection = match[1].trim();
+                        sections[currentSection] = [];
+                    } else if (currentSection && trimmedLine) {
+                        sections[currentSection].push(trimmedLine);
+                    }
+                });
+                
+                // Render sections to the corresponding list elements
+                const exp1Description = document.getElementById('exp1-description');
+                const exp2Description = document.getElementById('exp2-description');
+                const skills = document.getElementById('skills');
+                const project1Description = document.getElementById('project1-description');
+
+                // Find matching sections (case-insensitive search). Be flexible about naming.
+                const keys = Object.keys(sections);
+                let infosysKey = keys.find(key => key.toLowerCase().includes('infosys'));
+                let techmoKey = keys.find(key => key.toLowerCase().includes('techimo') || key.toLowerCase().includes('techimo transformations'));
+                let skillsKey = keys.find(key => key.toLowerCase().includes('skills'));
+                let projectKey = keys.find(key => key.toLowerCase().includes('project') || key.toLowerCase().includes('projects') || key.toLowerCase().includes('my plan manager'));
+
+                if (infosysKey && exp1Description && sections[infosysKey].length > 0) {
+                    sections[infosysKey].forEach(item => {
+                        const li = document.createElement("li");
+                        li.textContent = item;
+                        exp1Description.appendChild(li);
+                    });
+                }
+                
+                if (techmoKey && exp2Description && sections[techmoKey].length > 0) {
+                    sections[techmoKey].forEach(item => {
+                        const li = document.createElement("li");
+                        li.textContent = item;
+                        exp2Description.appendChild(li);
+                    });
+                }
+
+                if (skillsKey && skills && sections[skillsKey].length > 0) {
+                    sections[skillsKey].forEach(item => {
+                        const li = document.createElement("li");
+                        li.textContent = item;
+                        skills.appendChild(li);
+                    });
+                }
+
+                if (projectKey && project1Description && sections[projectKey].length > 0) {
+                    sections[projectKey].forEach(item => {
+                        const li = document.createElement("li");
+                        li.textContent = item;
+                        project1Description.appendChild(li);
+                    });
+                }
+            })
+            .catch(err => console.error('Failed to load heavy-content.txt:', err))
     </script>
 
 </head>
@@ -246,7 +361,7 @@
         <header>
             <div class="heading-section">
                 <h1 class="heading">SUJIT SANJAY GAJARE</h1>
-                <h2 class="sub-heading">Senior Frontend Developer (Angular) | React Experience</h2>
+                <h2 class="sub-heading" id="title"></h2>
                 <p class="contact-info">
                     <span>&#9679; <a href="tel:+918149862034"> +91 &nbsp;8149862034</a></span>
                     <span>&#9679; <a href="mailto:sujitgajare@gmail.com">sujitgajare@gmail.com</a></span>
@@ -261,99 +376,38 @@
         <section>
             <h2 class="section-heading">Summary</h2>
             <hr>
-            <p class="summary-text">Senior Frontend Developer with 4+ years of experience building scalable enterprise
-                web applications using
-                Angular. Strong
-                expertise in micro-frontend architecture, performance optimization, and API integration. Experienced in
-                CI/CD automation
-                and improving application stability in production environments. Hands-on exposure to React fundamentals,
-                including
-                functional components and hooks, with the ability to adapt quickly across frontend frameworks in Agile
-                teams. </p>
+            <p class="summary-text" id="summary"></p>
         </section>
 
         <section>
             <h2 class="section-heading">Experience</h2>
             <hr>
             <article>
-                <h3 class="sub-heading">Infosys</h3>
-                <p class="flexbox-date"> <span>Technology Analyst</span> <span class="date">03/2022 - 07/2025</span></p>
-                <ul>
-                    <li>Spearheaded frontend architecture for enterprise-grade applications using Angular 14+, HTML5,
-                        and
-                        SCSS, achieving a
-                        30% improvement in initial page load times. </li>
-                    <li>Architected and deployed micro-frontend solutions to enhance modularity and scalability across
-                        multi-functional
-                        development streams.</li>
-                    <li>Directed a team of 6 junior developers through code reviews and systematized quality checks,
-                        ensuring 100% adherence
-                        to Angular best practices.</li>
-                    <li>Collaborated with UX designers and backend engineers to integrate REST/GraphQL APIs,
-                        streamlining
-                        the delivery of high
-                        quality, user-centric features. </li>
-                    <li>Boosted application stability by increasing unit test coverage from 55% to 85% using Jasmine and
-                        enforcing strict quality
-                        gates via SonarQube.</li>
-                    <li>Orchestrated CI/CD pipelines with AWS, Docker, and Bamboo in partnership with DevOps, reducing
-                        release cycle times.</li>
-                    <li>Engineered WCAG compliant, responsive user interfaces, ensuring seamless accessibility across
-                        all
-                        browsers and devices.</li>
-                    <li>Resolved critical production bottlenecks using ELK and ServiceNow to maintain high system
-                        availability</li>
-                    <li>Earned multiple Rise and Insta Awards for innovation, leadership, and consistent delivery
-                        excellence
-                        on high-impact
-                        projects. </li>
-                </ul>
+                <h3 class="sub-heading" id="companyName1"></h3>
+                <p class="flexbox-date"> <span id="role1"></span> <span class="date" id="duration1"></span></p>
+                <ul id="exp1-description"></ul>
             </article>
 
             <article>
-                <h3 class="sub-heading">TechIMO Transformations Pvt Ltd</h3>
-                <p class="flexbox-date"> <span>Team Lead and Developer</span> <span class="date">03/2021 -
-                        03/2022</span>
+                <h3 class="sub-heading" id="companyName2"></h3>
+                <p class="flexbox-date"> <span id="role2"></span> <span class="date" id="duration2"></span>
                 </p>
-                <ul>
-                    <li>Developed and maintained Shopify and WordPress web applications with JavaScript, HTML, CSS,
-                        Bootstrap, ensuring
-                        responsive UI and seamless functionality. </li>
-                    <li>Implemented responsive web designs and ensured WCAG accessibility compliance.</li>
-                    <li>Collaborated with clients for requirement gathering, sprint planning, and deployments.</li>
-                    <li>Led a team of 6 developers to deliver custom websites, web applications, web features, and
-                        performance enhancement
-                        solutions.</li>
-                </ul>
+                <ul id="exp2-description"></ul>
             </article>
         </section>
 
         <section>
             <h2 class="section-heading">Skills</h2>
             <hr>
-            <ul>
-                <li>Frontend: Angular, React, TypeScript, JavaScript, HTML5, CSS3</li>
-                <li>State & Data: RxJS, NgRx, REST, GraphQL, JWT </li>
-                <li>Testing: Jasmine, Unit Testing</li>
-                <li>DevOps: AWS, Docker, Bamboo, CI/CD</li>
-            </ul>
+            <ul id="skills"></ul>
         </section>
 
         <section>
             <h2 class="section-heading">Projects</h2>
             <hr>
             <article>
-                <p>My Plan Manager [Vanguard Enterprise Financial Platform]</p>
-                <ul>
-                    <li>Developed and maintained 8 Angular micro-frontends for an enterprise financial platform</li>
-                    <li>Enforced a modular micro-frontend architecture with RxJS for modular development and independent
-                        deployments</li>
-                    <li>Integrated REST and GraphQL APIs for real-time portfolio data synchronization</li>
-                    <li>Streamlined application performance using lazy loading and code splitting</li>
-                    <li>Executed secure JWT-based authentication and upheld secure coding practices </li>
-                    <li>Automated CI/CD pipelines using AWS, Docker, and Bamboo</li>
-                    <li>Delivered WCAG 2.1-compliant responsive UIs</li>
-                </ul>
+                <p id="Project1Name"></p>
+                <ul id="project1-description"></ul>
             </article>
         </section>
 
@@ -386,27 +440,18 @@
             <hr>
             <div class="achievement-grid">
                 <article>
-                    <h3 class="sub-heading">Quality Assurance Improvement</h3>
-                    <p>
-                        Increased unit test coverage from 55% to 85% using Jasmine and
-                        enforced automated quality gates through SonarQube.
-                    </p>
+                    <h3 class="sub-heading"></h3>
+                    <p></p>
                 </article>
 
                 <article>
-                    <h3 class="sub-heading">Performance Optimization</h3>
-                    <p>
-                        Improved core application performance, achieving a 30% reduction
-                        in initial page load time.
-                    </p>
+                    <h3 class="sub-heading"></h3>
+                    <p></p>
                 </article>
 
                 <article>
-                    <h3 class="sub-heading">Awards</h3>
-                    <p>
-                        Received multiple Rise and Insta Awards at Infosys for delivery
-                        excellence, innovation, and consistent high performance.
-                    </p>
+                    <h3 class="sub-heading"></h3>
+                    <p></p>
                 </article>
             </div>
         </section>
