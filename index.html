@@ -93,10 +93,14 @@
             display: grid;
             grid-template-columns: repeat(3, 1fr);
             gap: 1.5rem;
-            
+
             .sub-heading {
                 text-align: center;
                 margin: 0 0;
+            }
+
+            .description {
+                text-align: center;
             }
         }
 
@@ -244,13 +248,20 @@
                 role1.textContent = data.experience[0].role;                          // For Role
                 const duration1 = document.getElementById('duration1')
                 duration1.textContent = data.experience[0].duration;                          // For Duration
-
+                
                 const companyName2 = document.getElementById('companyName2')
                 companyName2.textContent = data.experience[1].company;                // For Company Name
                 const role2 = document.getElementById('role2')
                 role2.textContent = data.experience[1].role;                          // For Role
                 const duration2 = document.getElementById('duration2')
                 duration2.textContent = data.experience[1].duration;                          // For Duration
+                
+                const companyName3 = document.getElementById('companyName3')
+                companyName3.textContent = data.experience[2].company;                // For Company Name
+                const role3 = document.getElementById('role3')
+                role3.textContent = data.experience[2].role;                          // For Role
+                const duration3 = document.getElementById('duration3')
+                duration3.textContent = data.experience[2].duration;                          // For Duration
                 // For Desctiption please modify the txt file for the company.
 
                 // Projects
@@ -258,7 +269,7 @@
 
                 // Key Achievements
                 const achievementHeadings = document.querySelectorAll('.achievements .sub-heading');
-                const achievementParagraphs = document.querySelectorAll('.achievements article p'); 
+                const achievementParagraphs = document.querySelectorAll('.achievements article p');
                 achievementHeadings.forEach((heading, index) => {
                     if (data.achievements[index]) {
                         heading.textContent = data.achievements[index].heading;
@@ -291,33 +302,43 @@
                         sections[currentSection].push(trimmedLine);
                     }
                 });
-                
+
                 // Render sections to the corresponding list elements
-                const exp1Description = document.getElementById('exp1-description');
+                const exp3Description = document.getElementById('exp3-description');
                 const exp2Description = document.getElementById('exp2-description');
+                const exp1Description = document.getElementById('exp1-description');
                 const skills = document.getElementById('skills');
                 const project1Description = document.getElementById('project1-description');
 
                 // Find matching sections (case-insensitive search). Be flexible about naming.
                 const keys = Object.keys(sections);
+                let freelanceKey = keys.find(key => key.toLowerCase().includes('freelance') || key.toLowerCase().includes('freelancing'));
                 let infosysKey = keys.find(key => key.toLowerCase().includes('infosys'));
                 let techmoKey = keys.find(key => key.toLowerCase().includes('techimo') || key.toLowerCase().includes('techimo transformations'));
                 let skillsKey = keys.find(key => key.toLowerCase().includes('skills'));
                 let projectKey = keys.find(key => key.toLowerCase().includes('project') || key.toLowerCase().includes('projects') || key.toLowerCase().includes('my plan manager'));
 
+                if (freelanceKey && exp3Description && sections[freelanceKey].length > 0) {
+                    sections[freelanceKey].forEach(item => {
+                        const li = document.createElement("li");
+                        li.textContent = item;
+                        exp3Description.appendChild(li);
+                    });
+                }
+                
                 if (infosysKey && exp1Description && sections[infosysKey].length > 0) {
                     sections[infosysKey].forEach(item => {
                         const li = document.createElement("li");
                         li.textContent = item;
-                        exp1Description.appendChild(li);
+                        exp2Description.appendChild(li);
                     });
                 }
-                
+
                 if (techmoKey && exp2Description && sections[techmoKey].length > 0) {
                     sections[techmoKey].forEach(item => {
                         const li = document.createElement("li");
                         li.textContent = item;
-                        exp2Description.appendChild(li);
+                        exp1Description.appendChild(li);
                     });
                 }
 
@@ -383,16 +404,22 @@
             <h2 class="section-heading">Experience</h2>
             <hr>
             <article>
-                <h3 class="sub-heading" id="companyName1"></h3>
-                <p class="flexbox-date"> <span id="role1"></span> <span class="date" id="duration1"></span></p>
-                <ul id="exp1-description"></ul>
+                <h3 class="sub-heading" id="companyName3"></h3>
+                <p class="flexbox-date"> <span id="role3"></span> <span class="date" id="duration3"></span></p>
+                <ul id="exp3-description"></ul>
             </article>
 
             <article>
                 <h3 class="sub-heading" id="companyName2"></h3>
-                <p class="flexbox-date"> <span id="role2"></span> <span class="date" id="duration2"></span>
-                </p>
+                <p class="flexbox-date"> <span id="role2"></span> <span class="date" id="duration2"></span></p>
                 <ul id="exp2-description"></ul>
+            </article>
+
+            <article>
+                <h3 class="sub-heading" id="companyName1"></h3>
+                <p class="flexbox-date"> <span id="role1"></span> <span class="date" id="duration1"></span>
+                </p>
+                <ul id="exp1-description"></ul>
             </article>
         </section>
 
@@ -441,17 +468,17 @@
             <div class="achievement-grid">
                 <article>
                     <h3 class="sub-heading"></h3>
-                    <p></p>
+                    <p class="description"></p>
                 </article>
 
                 <article>
                     <h3 class="sub-heading"></h3>
-                    <p></p>
+                    <p class="description"></p>
                 </article>
 
                 <article>
                     <h3 class="sub-heading"></h3>
-                    <p></p>
+                    <p class="description"></p>
                 </article>
             </div>
         </section>

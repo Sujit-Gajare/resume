@@ -6,14 +6,19 @@
     },
     "experience": [
         {
+            "company": "TechIMO Transformations Pvt Ltd",
+            "role": "Team Lead and Developer",
+            "duration": "03/2021 - 03/2022"
+        },
+        {
             "company": "Infosys",
             "role": "Technology Analyst",
             "duration": "03/2022 - 07/2025"
         },
         {
-            "company": "TechIMO Transformations Pvt Ltd",
-            "role": "Team Lead and Developer",
-            "duration": "03/2021 - 03/2022"
+            "company": "Freelancing",
+            "role": "Website and Web Application Developer",
+            "duration": "07/2025 - Present"
         }
     ],
     "projects": [

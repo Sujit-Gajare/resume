@@ -1,3 +1,13 @@
+[Freelancing]
+Worked on a mix of paid client deliverables and independent Angular-based projects, focusing on frontend development, UI structure, and responsive design.
+Developed The Thriven Design website using Angular, implementing modular components, routing, and responsive layouts.
+Currently developing Scrova Web Studio website using Angular, focusing on scalable architecture and clean UI implementation.
+Created company profiles and product catalogues for Parammpara Agro Foods and Motherland Farms using Canva, delivering client-ready marketing material.
+Designed and built a personal digital portfolio website using HTML, CSS, JavaScript, and Bootstrap to showcase frontend skills and projects.
+Collaborated directly with clients to understand requirements, iterate on designs, and deliver within agreed timelines.
+Ensured responsive design, consistent branding, and usability across all deliverables.
+Tech Stack: Angular, TypeScript, HTML, CSS/SCSS, JavaScript, Bootstrap, Canva
+
 [Infosys Experience]
 Spearheaded frontend architecture for enterprise-grade applications using Angular 14+, HTML5, and SCSS, achieving a 
 30% improvement in initial page load times. 
