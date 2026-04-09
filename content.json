@@ -2,42 +2,45 @@
     "profile": {
         "name": "Sujit Gajare",
         "title": "Senior Frontend Developer (Angular)",
-        "summary": "Senior Frontend Developer with 4+ years of experience building scalable enterprise web applications using Angular. Strong expertise in micro-frontend architecture, performance optimization, and API integration. Experienced in CI/CD automation and improving application stability in production environments. Hands-on exposure to React fundamentals, including functional components and hooks, with the ability to adapt quickly across frontend frameworks in Agile teams."
+        "summary": "Senior Frontend Developer with 4.5+ years of experience building scalable enterprise web applications using Angular. Proven expertise in micro-frontend architecture, performance optimization, and API integration. Demonstrated track record of improving application performance, increasing test coverage, and delivering production-grade solutions in Agile environments."
     },
     "experience": [
         {
-            "company": "TechIMO Transformations Pvt Ltd",
+            "company": "– Soft The Next Pvt Ltd",
+            "role": "Software Development Intern",
+            "duration": "Jan 2019 - Jun 2019"
+        },
+        {
+            "company": "– TechIMO Transformations Pvt Ltd",
             "role": "Team Lead and Developer",
-            "duration": "03/2021 - 03/2022"
+            "duration": "Mar 2021 - Mar 2022"
         },
         {
-            "company": "Infosys",
+            "company": "– Infosys",
             "role": "Technology Analyst",
-            "duration": "03/2022 - 07/2025"
-        },
-        {
-            "company": "Frontend Development Upskilling & Independent Practice",
-            "role": "Website and Web Application Developer",
-            "duration": "08/2025 - Present"
+            "duration": "Mar 2022 - Jul 2025"
         }
     ],
     "projects": [
         {
-            "name": "My Plan Manager [Vanguard Enterprise Financial Platform]"
+            "name": "– My Plan Manager"
+        },
+        {
+            "name": "– Client Web Projects "
         }
     ],
     "achievements": [
         {
             "heading": "Quality Assurance Improvement",
-            "description": "Increased unit test coverage from 55% to 85% using Jasmine and enforced automated quality gates through SonarQube."
+            "description": "– Increased unit test coverage from 55% to 85% using Jasmine and enforced quality gates through SonarQube."
         },
         {
             "heading": "Performance Optimization",
-            "description": "Improved core application performance, achieving a 30% reduction in initial page load time."
+            "description": "– Improved core application performance resulting in a 30% improvement in initial page load time."
         },
         {
             "heading": "Awards",
-            "description": "Awarded multiple Rise and Insta Awards at Infosys for delivery excellence, innovation, and consistent high performance on enterprise projects. "
+            "description": "– Awarded multiple Rise and Insta Awards at Infosys for delivery excellence, innovation, and consistent high performance on enterprise projects."
         }
     ]
 }

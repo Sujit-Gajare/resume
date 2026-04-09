@@ -15,7 +15,7 @@
 
     <style>
         html {
-            background-color: black;
+            background-color: #353535;
             font-family: "Rubik", sans-serif;
             font-size: 20px;
         }
@@ -89,37 +89,39 @@
             }
         }
 
-        .achievement-grid {
+        .project {
+            margin-top: 1rem;
+        }
+
+        .selected-projects {
+            margin-top: 0.75rem;
+        }
+
+        .selected-projects-title {
+            margin: 0 0 0.5rem;
+            font-weight: 600;
+        }
+
+        .selected-projects-grid {
             display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 1.5rem;
-
-            .sub-heading {
-                text-align: center;
-                margin: 0 0;
-            }
-
-            .description {
-                text-align: center;
-            }
+            grid-template-columns: repeat(3, minmax(0, 1fr));
+            gap: 0.25rem 1rem;
+            list-style: none;
+            margin: 0;
+            padding: 0;
         }
 
-        .achievement-grid article {
-            padding: 1rem;
-            border-left: 3px solid #595959;
-            border-right: 15px solid #0057AD;
-            border-top: 3px solid #595959;
-            border-bottom: 15px solid #0057AD;
-            border-bottom-left-radius: 100px;
-            border-top-right-radius: 100px;
-            border-top-left-radius: 0px;
-            border-bottom-right-radius: 0px;
+        .selected-projects-grid li {
+            position: relative;
+            padding-left: 1rem;
         }
 
-        @media (max-width: 768px) {
-            .achievement-grid {
-                grid-template-columns: 1fr;
-            }
+        .selected-projects-grid li:before {
+            content: '•';
+            position: absolute;
+            left: 0;
+            top: 0;
+            color: #0057AD;
         }
 
         /* For Printing */
@@ -381,7 +383,7 @@
         }
 
         function printPDF() {
-            const pdfUrl = 'SujitSanjayGajare-Resume.pdf';
+            const pdfUrl = 'SujitSanjayGajare_Resume.pdf';
             const iframe = document.createElement('iframe');
             iframe.style.display = 'none';
             iframe.src = pdfUrl;
@@ -426,6 +428,7 @@
 
                 // Projects
                 document.getElementById('Project1Name').textContent = data.projects[0].name;
+                document.getElementById('Project2Name').textContent = data.projects[1].name;
 
                 // Key Achievements
                 const achievementHeadings = document.querySelectorAll('.achievements .sub-heading');
@@ -464,41 +467,48 @@
                 });
 
                 // Render sections to the corresponding list elements
-                const exp3Description = document.getElementById('exp3-description');
-                const exp2Description = document.getElementById('exp2-description');
                 const exp1Description = document.getElementById('exp1-description');
+                const exp2Description = document.getElementById('exp2-description');
+                const exp3Description = document.getElementById('exp3-description');
+
                 const skills = document.getElementById('skills');
                 const project1Description = document.getElementById('project1-description');
+                const project2Description = document.getElementById('project2-description');
+                const project2Selected = document.getElementById('project2-selected');
+                const project2SelectedWrapper = document.getElementById('project2-selected-wrapper');
 
                 // Find matching sections (case-insensitive search). Be flexible about naming.
                 const keys = Object.keys(sections);
-                let freelanceKey = keys.find(key => key.toLowerCase().includes('freelance') || key.toLowerCase().includes('freelancing'));
-                let infosysKey = keys.find(key => key.toLowerCase().includes('infosys'));
-                let techmoKey = keys.find(key => key.toLowerCase().includes('techimo') || key.toLowerCase().includes('techimo transformations'));
-                let skillsKey = keys.find(key => key.toLowerCase().includes('skills'));
-                let projectKey = keys.find(key => key.toLowerCase().includes('project') || key.toLowerCase().includes('projects') || key.toLowerCase().includes('my plan manager'));
 
-                if (freelanceKey && exp3Description && sections[freelanceKey].length > 0) {
-                    sections[freelanceKey].forEach(item => {
+                let infosysKey = keys.find(key => key.toLowerCase().includes('infosys'));
+                let techimoKey = keys.find(key => key.toLowerCase().includes('techimo') || key.toLowerCase().includes('techimo transformations'));
+                let softTheNextKey = keys.find(key => key.toLowerCase().includes('soft the next') || key.toLowerCase().includes('softthenext'));
+
+                let skillsKey = keys.find(key => key.toLowerCase().includes('skills'));
+                let project1Key = keys.find(key => key.toLowerCase().includes('project1') || key.toLowerCase().includes('my plan manager'));
+                let project2Key = keys.find(key => key.toLowerCase().includes('project2') || key.toLowerCase().includes('client web projects'));
+
+                if (softTheNextKey && exp1Description && sections[softTheNextKey].length > 0) {
+                    sections[softTheNextKey].forEach(item => {
                         const li = document.createElement("li");
                         li.textContent = item;
-                        exp3Description.appendChild(li);
+                        exp1Description.appendChild(li);
                     });
                 }
 
-                if (infosysKey && exp1Description && sections[infosysKey].length > 0) {
-                    sections[infosysKey].forEach(item => {
+                if (techimoKey && exp2Description && sections[techimoKey].length > 0) {
+                    sections[techimoKey].forEach(item => {
                         const li = document.createElement("li");
                         li.textContent = item;
                         exp2Description.appendChild(li);
                     });
                 }
 
-                if (techmoKey && exp2Description && sections[techmoKey].length > 0) {
-                    sections[techmoKey].forEach(item => {
+                if (infosysKey && exp3Description && sections[infosysKey].length > 0) {
+                    sections[infosysKey].forEach(item => {
                         const li = document.createElement("li");
                         li.textContent = item;
-                        exp1Description.appendChild(li);
+                        exp3Description.appendChild(li);
                     });
                 }
 
@@ -510,11 +520,38 @@
                     });
                 }
 
-                if (projectKey && project1Description && sections[projectKey].length > 0) {
-                    sections[projectKey].forEach(item => {
+                if (project1Key && project1Description && sections[project1Key].length > 0) {
+                    sections[project1Key].forEach(item => {
                         const li = document.createElement("li");
                         li.textContent = item;
                         project1Description.appendChild(li);
+                    });
+                }
+
+                if (project2Key && project2Description && sections[project2Key].length > 0) {
+                    sections[project2Key].forEach(item => {
+                        const trimmed = item.trim();
+                        if (!trimmed) {
+                            return;
+                        }
+
+                        const normalizedText = trimmed.replace(/^[•\-\u2013\u2014]+\s*/, '');
+                        if (/selected projects/i.test(trimmed)) {
+                            if (project2SelectedWrapper) {
+                                project2SelectedWrapper.hidden = false;
+                            }
+                        } else if (/^•/.test(trimmed) || /^[-\u2013\u2014]/.test(trimmed)) {
+                            if (project2Selected && project2SelectedWrapper) {
+                                project2SelectedWrapper.hidden = false;
+                                const selectedLi = document.createElement("li");
+                                selectedLi.textContent = normalizedText;
+                                project2Selected.appendChild(selectedLi);
+                            }
+                        } else {
+                            const li = document.createElement("li");
+                            li.textContent = trimmed;
+                            project2Description.appendChild(li);
+                        }
                     });
                 }
             })
@@ -572,7 +609,7 @@
         </header>
 
         <section>
-            <h2 class="section-heading">Summary</h2>
+            <h2 class="section-heading">About Me</h2>
             <hr>
             <p class="summary-text" id="summary"></p>
         </section>
@@ -581,22 +618,61 @@
             <h2 class="section-heading">Experience</h2>
             <hr>
             <article>
-                <h3 class="sub-heading" id="companyName3"></h3>
-                <p class="flexbox-date"> <span id="role3"></span> <span class="date" id="duration3"></span></p>
+                <h3 class="sub-heading" id="role3"></h3>
+                <p class="flexbox-date"> <span id="companyName3"></span> <span class="date" id="duration3"></span></p>
                 <ul id="exp3-description"></ul>
             </article>
 
             <article>
-                <h3 class="sub-heading" id="companyName2"></h3>
-                <p class="flexbox-date"> <span id="role2"></span> <span class="date" id="duration2"></span></p>
+                <h3 class="sub-heading" id="role2"></h3>
+                <p class="flexbox-date"> <span id="companyName2"></span> <span class="date" id="duration2"></span></p>
                 <ul id="exp2-description"></ul>
             </article>
 
             <article>
-                <h3 class="sub-heading" id="companyName1"></h3>
-                <p class="flexbox-date"> <span id="role1"></span> <span class="date" id="duration1"></span>
+                <h3 class="sub-heading" id="role1"></h3>
+                <p class="flexbox-date"> <span id="companyName1"></span> <span class="date" id="duration1"></span>
                 </p>
                 <ul id="exp1-description"></ul>
+            </article>
+        </section>
+
+        <section>
+            <h2 class="section-heading">Education</h2>
+            <hr>
+            <article>
+                <h3 class="sub-heading">Nowrosjee Wadia College</h3>
+                <p class="flexbox-date"> <span>Masters in Computer Science</span> <span class="date">Jul 2017 – May 2019</span></p>
+            </article>
+            <article>
+                <h3 class="sub-heading">Pad Dr DY Patil ACS college</h3>
+                <p class="flexbox-date"> <span>Bachelors in Computer Science</span> <span class="date">Jul 2014 – May 2017</span></p>
+            </article>
+            <article>
+                <h3 class="sub-heading">St Vincents Jr College</h3>
+                <p class="flexbox-date"> <span>HSC</span> <span class="date">Jul 2012 – Mar 2014</span></p>
+            </article>
+            <article>
+                <h3 class="sub-heading">Army Public School Kirkee</h3>
+                <p class="flexbox-date"> <span>SSC</span> <span class="date">Jul 2010 – Mar 2012</span></p>
+            </article>
+
+        </section>
+
+        <section>
+            <h2 class="section-heading">Projects</h2>
+            <hr>
+            <article class="project">
+                <h3 class="sub-heading" id="Project1Name"></h3>
+                <ul id="project1-description"></ul>
+            </article>
+            <article class="project">
+                <h3 class="sub-heading" id="Project2Name"></h3>
+                <ul id="project2-description"></ul>
+                <div class="selected-projects" id="project2-selected-wrapper" hidden>
+                    <p class="selected-projects-title">– Selected Projects:</p>
+                    <ul class="selected-projects-grid" id="project2-selected"></ul>
+                </div>
             </article>
         </section>
 
@@ -606,43 +682,9 @@
             <ul id="skills"></ul>
         </section>
 
-        <section>
-            <h2 class="section-heading">Projects</h2>
-            <hr>
-            <article>
-                <p id="Project1Name"></p>
-                <ul id="project1-description"></ul>
-            </article>
-        </section>
-
-        <section>
-            <h2 class="section-heading">Education</h2>
-            <hr>
-            <article>
-                <h3 class="sub-heading">Nowrosjee Wadia College</h3>
-                <p class="flexbox-date"> <span>Masters in Computer Science</span> <span class="date">07/2017 -
-                        05/2019</span></p>
-            </article>
-            <article>
-                <h3 class="sub-heading">Pad Dr DY Patil ACS college</h3>
-                <p class="flexbox-date"> <span>Bachelors in Computer Science</span> <span class="date">07/2014 -
-                        05/2017</span></p>
-            </article>
-            <article>
-                <h3 class="sub-heading">St Vincents Jr College</h3>
-                <p class="flexbox-date"> <span>HSC</span> <span class="date">06/2012 - 03/2014</span></p>
-            </article>
-            <article>
-                <h3 class="sub-heading">Army Public School Kirkee</h3>
-                <p class="flexbox-date"> <span>SSC</span> <span class="date">06/2010 - 03/2012</span></p>
-            </article>
-
-        </section>
-
         <section class="achievements">
             <h2 class="section-heading">Key Achievements</h2>
             <hr>
-            <div class="achievement-grid">
                 <article>
                     <h3 class="sub-heading"></h3>
                     <p class="description"></p>
@@ -657,7 +699,6 @@
                     <h3 class="sub-heading"></h3>
                     <p class="description"></p>
                 </article>
-            </div>
         </section>
 
     </main>
